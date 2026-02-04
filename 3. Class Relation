@@ -1,0 +1,47 @@
+//Association
+public class Student{
+  private String name;
+  private String assignment;
+  public Student(String name){
+    this.name = name;
+  }
+  
+  public void setName(String name){
+    this.name = name;
+  }
+  
+  public String getName(){
+    return name;
+  }
+
+  public void setAssignment(String assignment){
+    this.assignment = assignment;
+  }
+
+  public String getAssignment(){
+    return assignment;
+  }
+}
+
+public class Instructor{
+  private String name;
+  public Instructor(String name){
+    this.name = name;
+  }
+  
+  public void giveAssignment(Student s, String assignment){ // <== ASOSIASI (parameter bertipe Student)
+    s.setAssignment(assignment);
+  }
+}
+
+public class Driver{
+    public static void main(String args[]){
+      Student s1 = new Student("andi");
+      Instructor i1 = new Instructor("budi");
+      i1.giveAssignment(s1,"code java OOP");
+      System.out.println(s1.getAssignment());
+  }
+}
+
+
+//Aggregation
