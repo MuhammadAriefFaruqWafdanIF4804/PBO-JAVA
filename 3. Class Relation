@@ -28,20 +28,104 @@ public class Instructor{
   public Instructor(String name){
     this.name = name;
   }
-  
-  public void giveAssignment(Student s, String assignment){ // <== ASOSIASI (parameter bertipe Student)
-    s.setAssignment(assignment);
+
+// ============ ASSOCIATION: METHOD PARAMETER ============
+// Asosiasi ditandai dengan parameter bertipe kelas lain (Student)
+  public void giveAssignment(Student s, String assignment){    // ASSOCIATION: Instructor menggunakan objek Student sebagai parameter
+    s.setAssignment(assignment);                               // ASSOCIATION: Instructor berinteraksi dengan Student melalui method call
   }
 }
 
+
+
 public class Driver{
     public static void main(String args[]){
-      Student s1 = new Student("andi");
-      Instructor i1 = new Instructor("budi");
-      i1.giveAssignment(s1,"code java OOP");
+
+      // ============ ASSOCIATION: OBJECT CREATION ============
+      // Pembuatan objek dari kelas yang berbeda
+      Student s1 = new Student("andi");                     // ASSOCIATION: Objek Student dibuat
+      Instructor i1 = new Instructor("budi");               // ASSOCIATION: Instructor Student dibuat
+
+      // ============ ASSOCIATION: METHOD CALL WITH OBJECT ============
+      // Asosiasi terjadi ketika objek dari satu kelas dikirim ke metode kelas lain
+      i1.giveAssignment(s1,"code java OOP");                // ASSOCIATION: Instructor berasosiasi dengan Student melalui parameter
+
       System.out.println(s1.getAssignment());
   }
 }
 
 
+
+
 //Aggregation
+
+public class Engine {
+    private String name;
+    private int horsePower;
+    
+    public Engine(String name) {
+        this.name = name;
+    }
+    
+    public int getHorsePower() {
+        return horsePower;
+    }
+    
+    public void setHorsePower(int hp) {
+        this.horsePower = hp;
+    }
+}
+
+public class Transmission {
+    private String type;
+    
+    public String getType() {
+        return type;
+    }
+    
+    public void setType(String type) {
+        this.type = type;
+    }
+}
+
+public class Car {
+    private String name;
+    
+    // ============ AGGREGATION: ATTRIBUTE DECLARATION ============
+    // Aggregation ditandai dengan atribut yang bertipe kelas lain
+    private Engine engine;           // AGGREGATION: Car memiliki Engine (whole-part relationship)
+    private Transmission transmission; // AGGREGATION: Car memiliki Transmission (whole-part relationship)
+    
+    public Car(String name) {
+        this.name = name;
+    }
+    
+    // ============ AGGREGATION: METHOD PARAMETER ============
+    // Aggregation ditandai dengan method yang menerima objek dari kelas lain
+    public void addEngine(Engine e) {    // AGGREGATION: menerima Engine sebagai parameter
+        engine = e;                       // AGGREGATION: menyimpan referensi ke Engine
+    }
+    
+    public void addTransmission(Transmission t) { // AGGREGATION: menerima Transmission sebagai parameter
+        transmission = t;                  // AGGREGATION: menyimpan referensi ke Transmission
+    }
+}
+
+public class Driver {
+    public static void main(String[] args) {
+        // ============ AGGREGATION: INDEPENDENT OBJECT CREATION ============
+        // Objek dibuat secara terpisah, menunjukkan kehidupan yang independen
+        Car c = new Car("honda");             // Objek Car dibuat
+        
+        Engine v1000 = new Engine("v1000");   // AGGREGATION: Engine dibuat TERPISAH dari Car
+        Transmission auto = new Transmission(); // AGGREGATION: Transmission dibuat TERPISAH dari Car
+        
+        auto.setType("Automatic");
+        
+        // ============ AGGREGATION: OBJECT LINKING ============
+        // Objek yang dibuat terpisah kemudian dihubungkan (bukan dibuat di dalam)
+        c.addEngine(v1000);      // AGGREGATION: Engine dihubungkan ke Car (weak ownership)
+        c.addTransmission(auto); // AGGREGATION: Transmission dihubungkan ke Car (weak ownership)
+
+    }
+}
