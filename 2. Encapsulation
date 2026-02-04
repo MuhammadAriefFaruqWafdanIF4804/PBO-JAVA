@@ -1,0 +1,97 @@
+package belajar_java;
+
+public class Mahasiswa {
+    
+    // ============ ENCAPSULATION: DATA HIDING ============
+    // Atribut dibuat PRIVATE untuk menyembunyikan data dari akses langsung
+    private String nama;      // ENCAPSULATION: hanya bisa diakses via getter/setter
+    private String jurusan;   // ENCAPSULATION: hanya bisa diakses via getter/setter
+    private String nim;       // ENCAPSULATION: hanya bisa diakses via getter/setter
+    private double ipk;       // ENCAPSULATION: hanya bisa diakses via getter/setter
+    // ====================================================
+    
+    // ============ ENCAPSULATION: GETTER METHODS ============
+    // Getter: metode untuk mengakses data yang tersembunyi (read-only access)
+    public String getNama() {      // ENCAPSULATION: public interface untuk membaca nama
+        return nama;
+    }
+    
+    public String getJurusan() {   // ENCAPSULATION: public interface untuk membaca jurusan
+        return jurusan;
+    }
+    
+    public String getNim() {       // ENCAPSULATION: public interface untuk membaca NIM
+        return nim;
+    }
+    
+    public double getIpk() {       // ENCAPSULATION: public interface untuk membaca IPK
+        return ipk;
+    }
+    // ======================================================
+    
+    // ============ ENCAPSULATION: SETTER METHODS ============
+    // Setter: metode untuk mengubah data dengan kontrol validasi
+    public void setNama(String nama) {      // ENCAPSULATION: public interface untuk mengubah nama
+        this.nama = nama;
+    }
+    
+    public void setJurusan(String jurusan) { // ENCAPSULATION: public interface untuk mengubah jurusan
+        this.jurusan = jurusan;
+    }
+    
+    public void setNim(String nim) {        // ENCAPSULATION: public interface untuk mengubah NIM
+        this.nim = nim;
+    }
+    
+    public void setIpk(double ipk) {        // ENCAPSULATION: public interface untuk mengubah IPK DENGAN VALIDASI
+        if (ipk >= 0.0 && ipk <= 4.0) {     // ENCAPSULATION: validasi bisnis/logika
+            this.ipk = ipk;
+        } else {
+            System.out.println("IPK tidak valid. Harus antara 0.0 - 4.0");
+        }
+    }
+    // =======================================================
+    
+    // Method untuk menampilkan informasi
+    public void displayInfo() {
+        System.out.println("Nama: " + nama + 
+                         " | NIM: " + nim + 
+                         " | Jurusan: " + jurusan + 
+                         " | IPK: " + ipk);
+    }
+}
+
+class TestMahasiswa {
+    public static void main(String[] args) {
+        // Membuat objek mhs1
+        Mahasiswa mhs1 = new Mahasiswa();
+        
+        // ENCAPSULATION DALAM AKSI: menggunakan setter bukan akses langsung
+        mhs1.setNama("Andi");          // ENCAPSULATION: mengubah data via public interface
+        mhs1.setNim("12345");          // ENCAPSULATION: mengubah data via public interface
+        mhs1.setJurusan("Informatika"); // ENCAPSULATION: mengubah data via public interface
+        mhs1.setIpk(3.75);             // ENCAPSULATION: mengubah data dengan validasi
+        
+        // ENCAPSULATION DALAM AKSI: menggunakan getter untuk menampilkan data
+        System.out.println("Data via Getter:");
+        System.out.println("Nama: " + mhs1.getNama());     // ENCAPSULATION: membaca via public interface
+        System.out.println("NIM: " + mhs1.getNim());       // ENCAPSULATION: membaca via public interface
+        System.out.println("Jurusan: " + mhs1.getJurusan());// ENCAPSULATION: membaca via public interface
+        System.out.println("IPK: " + mhs1.getIpk());       // ENCAPSULATION: membaca via public interface
+        
+        // Tampilkan semua informasi
+        System.out.println("\nData lengkap:");
+        mhs1.displayInfo();
+        
+        // Demo validasi ENCAPSULATION
+        System.out.println("\n=== Demo Validasi Encapsulation ===");
+        Mahasiswa mhs2 = new Mahasiswa();
+        mhs2.setNama("Budi");
+        mhs2.setIpk(5.0);  // ENCAPSULATION: akan ditolak oleh validasi di setter
+        System.out.println("IPK Budi setelah coba set 5.0: " + mhs2.getIpk()); // Masih 0.0 (default)
+        
+        // ENCAPSULATION: Coba akses langsung (akan ERROR jika dicoba)
+        // mhs2.nama = "Cici";  // ERROR: nama has private access in Mahasiswa
+        // System.out.println(mhs2.nim);  // ERROR: nim has private access in Mahasiswa
+    }
+}
